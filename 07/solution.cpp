@@ -4,10 +4,11 @@
 #include <cmath>
 #include <deque>
 #include <algorithm>
+#include <map>
 
 using namespace std;
 
-using Memory = vector<int>;
+using Memory = map<int, int>;
 using IO = deque<int>;
 
 class Intcode {
@@ -99,7 +100,7 @@ private:
         return (opcode / base) % 10;
     }
 
-    static int param(vector<int> &memory, int ip, int offset) {
+    static int param(Memory &memory, int ip, int offset) {
         switch (mode(memory[ip], offset)) {
             case 0:
                 return memory[ip + offset];
@@ -120,7 +121,7 @@ Memory getInput() {
     getline(cin, input);
     stringstream ss(input);
     while (getline(ss, input, ',')) {
-        memory.push_back(stoi(input));
+        memory.insert(pair<int, int>(memory.size(), stoi(input)));
     }
 
     return memory;
